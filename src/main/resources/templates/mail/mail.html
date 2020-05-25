@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+
+    <title>测试邮件</title>
+</head>
+<body>
+    <table border='1' width='80%' align='center' cellspacing='0' cellpadding='6'>
+
+        <div style="margin-bottom: 20px">
+            <h1 style='text-align:center;color:red'>工作流执行报告</h1>
+            <br/>
+            <span style="margin-left: 10%;font-size: 16px;color: #646256" th:text="'工作流名称:'+${title}"></span>
+            <span style="margin-left: 10%;font-size: 16px;color: #646256" th:text="'总耗时:'+${flowConsumeDate}"></span>
+            <span style="float:right;margin-right: 11%;font-size: 16px;color: #646256" th:text="'环境:'+${env}"></span>
+        </div>
+
+        <thead align='center' style='background: blue;color: #fff'>
+            <th width = '10%'>节点名称</th>
+            <th width = '20%'>开始时间</th>
+            <th width = '20%'>结束时间</th>
+            <th width = '10%'>耗费时间</th>
+            <th width = '10%'>运行结果</th>
+            <th width = '30%'>日志远程路径</th>
+        </thead>
+        <tbody>
+            <tr th:each="email : ${data}">
+                <th th:text="${email.nodeName}"></th>
+                <th th:text="${email.startDate}"></th>
+                <th th:text="${email.endDate}"></th>
+                <th th:text="${email.consuming}"></th>
+                <th th:text="${email.runStatus}"></th>
+                <th>
+                    <dev th:each="logPath : ${email.logPaths}">
+                        <a th:href="@{${logPath}}" th:text="${logPath}"></a><br/>
+                    </dev>
+                </th>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
